@@ -38,6 +38,7 @@
 
 /* Begin PBXFileReference section */
 		493830A61D80814C00058802 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		493830A81D80835C00058802 /* design.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = design.pdf; sourceTree = "<group>"; };
 		4985166D1D7EC57E005FB22E /* Raytracer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Raytracer; sourceTree = BUILT_PRODUCTS_DIR; };
 		498516701D7EC57E005FB22E /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		498516771D7EC797005FB22E /* testscenes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = testscenes; sourceTree = "<group>"; };
@@ -84,6 +85,7 @@
 		498516641D7EC57E005FB22E = {
 			isa = PBXGroup;
 			children = (
+				493830A81D80835C00058802 /* design.pdf */,
 				493830A61D80814C00058802 /* README.md */,
 				4985166F1D7EC57E005FB22E /* Raytracer */,
 				4985166E1D7EC57E005FB22E /* Products */,
