@@ -40,6 +40,10 @@ Vector Vector::operator-(const Vector& other) {
     return Vector(x - other.x, y - other.y, z - other.z);
 }
 
+Vector Vector::operator*(const float other) {
+    return Vector(x * other, y * other, z * other);
+}
+
 Vector::Vector(float x, float y, float z) {
     this->x = x;
     this->y = y;

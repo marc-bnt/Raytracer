@@ -21,6 +21,8 @@ public:
     
     Vector operator+(const Vector& other);
     Vector operator-(const Vector& other);
+    
+    Vector operator*(const float other);
 
     Vector(float x, float y, float z);
     Vector();

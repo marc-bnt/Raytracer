@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		493830A71D80814C00058802 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 493830A61D80814C00058802 /* README.md */; };
 		498516711D7EC57E005FB22E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 498516701D7EC57E005FB22E /* main.cpp */; };
 		4985167B1D7EC876005FB22E /* libfreeimage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4985167A1D7EC876005FB22E /* libfreeimage.a */; };
 		4985167E1D7ECBEF005FB22E /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4985167C1D7ECBEF005FB22E /* Scene.cpp */; };
@@ -200,7 +199,6 @@
 				498516A11D7F0C63005FB22E /* Triangle.cpp in Sources */,
 				498516891D7EDAED005FB22E /* Vector.cpp in Sources */,
 				4991A2BE1D80284A00DA0765 /* test.cpp in Sources */,
-				493830A71D80814C00058802 /* README.md in Sources */,
 				4985168F1D7EDBC8005FB22E /* Ray.cpp in Sources */,
 				4985167E1D7ECBEF005FB22E /* Scene.cpp in Sources */,
 				498516711D7EC57E005FB22E /* main.cpp in Sources */,

@@ -77,6 +77,11 @@ void testVector() {
     assert(compare(subtract.x, 0.3));
     assert(compare(subtract.y, 0.3));
     assert(compare(subtract.z, 0.3));
+    
+    Vector multiply = Vector(0.4, 0.5, 0.6) * 2;
+    assert(compare(multiply.x, 0.8));
+    assert(compare(multiply.y, 1.0));
+    assert(compare(multiply.z, 1.2));
 }
 
 void testPoint() {
