@@ -13,7 +13,11 @@ void Camera::generateRay(Sample& sample, Ray* ray) {
     Vector u = up.cross(w).normalize();
     Vector v = w.cross(up);
     
+    float alpha = tan(fovx / 2) * ((sample.x - (width / 2)) / (width / 2));
+    float beta = tan(fovy / 2) * (((height / 2) - sample.y) / (height / 2));
+    
     ray->pos = eye;
+    ray->dir = (u * alpha + v * beta - w).normalize();
 }
 
 Camera::Camera(Point eye, Point center, Vector up, double fovy, double width, double height) {
