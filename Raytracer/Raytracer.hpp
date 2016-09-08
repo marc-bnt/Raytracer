@@ -19,7 +19,9 @@ class Raytracer
 private:
     vector<Triangle> triangles;
     vector<Light> lights;
+    Point eye;
 public:
-    Raytracer(vector<Triangle> triangles, vector<Light> ligths);
+    Color shading(Triangle triangle, BRDF &brdf, Ray lray, Color lcolor);
+    Raytracer(vector<Triangle> triangles, vector<Light> ligths, Point eye);
     void trace(Ray& ray, Color* color);
 };

@@ -13,12 +13,13 @@
 class Camera
 {
 private:
-    Point eye;
     Point center;
     Vector up;
     double width;
     double height;
 public:
+    Point eye;
+
     double fovx;
     double fovy;
     

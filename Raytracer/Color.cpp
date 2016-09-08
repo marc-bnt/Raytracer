@@ -8,6 +8,15 @@
 
 #include "Color.hpp"
 
+Color Color::operator+(const Color& other) {
+    return Color(r + other.r, g + other.g, b + other.b);
+}
+
+Color& Color::operator+=(const Color& other) {
+    r += other.r; g += other.g; b += other.b;
+    return *this;
+}
+
 Color::Color() {
 }
 

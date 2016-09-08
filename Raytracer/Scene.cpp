@@ -22,7 +22,7 @@ void Scene::render() {
     Sampler* sampler = new Sampler(width, height);
     Film* film = new Film(output, width, height);
     
-    Raytracer *raytracer = new Raytracer(triangles, lights);
+    Raytracer *raytracer = new Raytracer(triangles, lights, camera->eye);
     
     Ray ray;
     Sample sample;
@@ -70,10 +70,10 @@ Scene::Scene(const char* input, const char* output) {
 //                        vec3 dir = vec3(transfstack.top() * vec4(posn, 0), 3);
 //                        Light light = Light(dir,col,0);
                         
+                        Vector direction = Vector(values[0],values[1],values[2]);
                         Color color = Color(values[3],values[4],values[5]);
-                        Vector direction = Vector(0, 0, 0);
 
-                        lights.push_back(Light(color, direction, LightDirectional));
+                        lights.push_back(Light(direction, color));
                     }
                     
                 }
@@ -87,10 +87,10 @@ Scene::Scene(const char* input, const char* output) {
 //                        vec3 dir = vec3(transfstack.top() * vec4(posn, 1));
 //                        Light light = Light(dir,col,1,attenuation);
 //                        
+                        Point position = Point(values[0],values[1],values[2]);
                         Color color = Color(values[3],values[4],values[5]);
-                        Vector direction = Vector(0, 0, 0);
                         
-                        lights.push_back(Light(color, direction, LightPoint));
+                        lights.push_back(Light(position, color));
                     }
                 }
                 else if (cmd == "attenuation") {

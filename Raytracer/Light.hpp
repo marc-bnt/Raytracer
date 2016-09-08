@@ -13,6 +13,7 @@
 #include "Point.hpp"
 #include "Color.hpp"
 #include "Vector.hpp"
+#include "Triangle.hpp"
 
 typedef enum {
     LightDirectional,
@@ -22,10 +23,19 @@ typedef enum {
 class Light {
 public:
     Color color;
+    Point position;
     Vector direction;
     LightType type;
+    
+    void generateLightRay(Triangle& triangle, Ray* lray, Color* lcolor);
+    
     Light();
-    Light(Color color, Vector direction, LightType type);
+
+    // Directional light
+    Light(Vector direction, Color color);
+    
+    // Point light
+    Light(Point position, Color color);
 };
 
 #endif /* Light_hpp */

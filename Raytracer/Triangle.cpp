@@ -19,6 +19,10 @@ bool Triangle::intersect(Ray r, double* t) {
 
     Vector point = r.pos + (r.dir*(*t));
     
+    // XXX
+    position = Point(point.x, point.y, point.z);
+    this->normal = normal;
+    
     if (normal.dot((point2 - point1).cross(point - point1)) < 0) {
         return false;
     }

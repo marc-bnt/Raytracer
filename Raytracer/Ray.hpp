@@ -14,8 +14,8 @@ class Ray
 public:
     Point pos;
     Vector dir;
-    float t_min = 0.0;
-    float t_max = 1.0;
+    float tMin = 0.0;
+    float tMax = 1.0;
     Ray();
     Ray(Point pos, Vector dir);
 };
