@@ -9,6 +9,7 @@
 #include <cassert>
 #include "test.hpp"
 #include "Camera.hpp"
+#include "Triangle.hpp"
 
 #define EPSILON 0.000001
 
@@ -119,11 +120,47 @@ void testCamera() {
     assert(compare(ray.pos.y, 0));
     assert(compare(ray.pos.z, 4));
     
+    assert(compare(ray.dir.x, -0.326214));
+    assert(compare(ray.dir.y, -0.244661));
+    assert(compare(ray.dir.z, -0.913086));
+
     sample = Sample(320, 240);
     camera->generateRay(sample, &ray);
     
+    assert(compare(ray.pos.x, 0));
+    assert(compare(ray.pos.y, 0));
+    assert(compare(ray.pos.z, 4));
+    
+    assert(compare(ray.dir.x, 0));
+    assert(compare(ray.dir.y, 0));
+    assert(compare(ray.dir.z, -1));
+    
     sample = Sample(640, 480);
     camera->generateRay(sample, &ray);
+
+    assert(compare(ray.pos.x, 0));
+    assert(compare(ray.pos.y, 0));
+    assert(compare(ray.pos.z, 4));
+    
+    assert(compare(ray.dir.x, 0.326214));
+    assert(compare(ray.dir.y, 0.244661));
+    assert(compare(ray.dir.z, -0.913086));
+}
+
+void testTriangle() {
+    printf("Testing triangle\n");
+    
+    Triangle triangle = Triangle(Point(-1, -1, 0), Point(1, -1, 0), Point(1, 1, 0));
+    double t;
+
+    assert(!triangle.intersect(Ray(Point(0, 0, 4), Vector(-0.326214, -0.244661, -0.913086)), &t));
+    assert(compare(t, 4.380748));
+    
+    assert(triangle.intersect(Ray(Point(0, 0, 4), Vector(0, 0, -1)), &t));
+    assert(compare(t, 4));
+    
+    assert(!triangle.intersect(Ray(Point(0, 0, 4), Vector(0.326214, 0.244661, -0.913086)), &t));
+    assert(compare(t, 4.380748));
 }
 
 void testAll() {
@@ -132,6 +169,7 @@ void testAll() {
     testVector();
     testPoint();
     testCamera();
+    testTriangle();
     
     printf("All tests passed\n");
 }

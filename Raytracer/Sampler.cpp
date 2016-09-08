@@ -17,8 +17,8 @@ bool Sampler::getSample(Sample *sample) {
     sample->x = x;
     sample->y = y;
     
-    if (x == width) {
-        x = 0;
+    if (x == width + 0.5) {
+        x = 0.5;
         y++;
     } else {
         x++;
@@ -28,8 +28,8 @@ bool Sampler::getSample(Sample *sample) {
 }
 
 Sampler::Sampler(float width, float height) {
-    this->x = 0;
-    this->y = 0;
+    this->x = 0.5;
+    this->y = 0.5;
 
     this->width = width;
     this->height = height;

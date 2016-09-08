@@ -9,6 +9,14 @@
 #include "Point.hpp"
 #include "Vector.hpp"
 
+double Point::dot(const Vector& other) {
+    return (double) x * other.x + y * other.y + z * other.z;
+}
+
+Vector Point::operator+(const Vector& other) {
+    return Vector(x + other.x, y + other.y, z + other.z);
+}
+
 Vector Point::operator-(const Point& other) {
     return Vector(x - other.x, y - other.y, z - other.z);
 }

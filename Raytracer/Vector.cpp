@@ -6,8 +6,9 @@
 //
 //
 
-#include "Vector.hpp"
 #include "math.h"
+#include "Vector.hpp"
+#include "Point.hpp"
 
 double Vector::norm() {
     return (double) sqrt(pow(this->x, 2) + pow(this->y, 2) + pow(this->z, 2));
@@ -36,7 +37,15 @@ Vector Vector::operator+(const Vector& other) {
     return Vector(x + other.x, y + other.y, z + other.z);
 }
 
+Vector Vector::operator+(const Point& other) {
+    return Vector(x + other.x, y + other.y, z + other.z);
+}
+
 Vector Vector::operator-(const Vector& other) {
+    return Vector(x - other.x, y - other.y, z - other.z);
+}
+
+Vector Vector::operator-(const Point& other) {
     return Vector(x - other.x, y - other.y, z - other.z);
 }
 

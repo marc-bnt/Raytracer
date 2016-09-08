@@ -16,6 +16,7 @@ private:
     float width;
     float height;
 
+    Color colors[480][640];
 public:
     // Will write the color to (sample.x, sample.y) on the image
     void commit(Sample& sample, Color& color);

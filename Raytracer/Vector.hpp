@@ -6,6 +6,11 @@
 //
 //
 
+#ifndef Vector_hpp
+#define Vector_hpp
+
+class Point;
+
 class Vector
 {
 public:
@@ -20,10 +25,15 @@ public:
     Vector cross(const Vector& other);
     
     Vector operator+(const Vector& other);
+    Vector operator+(const Point& other);
+    
     Vector operator-(const Vector& other);
+    Vector operator-(const Point& other);
     
     Vector operator*(const float other);
 
     Vector(float x, float y, float z);
     Vector();
 };
+
+#endif /* Vector_hpp */

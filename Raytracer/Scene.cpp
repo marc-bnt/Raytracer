@@ -13,6 +13,7 @@
 #include "Ray.hpp"
 #include "Sampler.hpp"
 #include "Raytracer.hpp"
+#include "BRDF.hpp"
 
 using namespace std;
 
@@ -20,15 +21,16 @@ using namespace std;
 void Scene::render() {
     Sampler* sampler = new Sampler(width, height);
     Film* film = new Film(output, width, height);
-    Raytracer *raytracer = new Raytracer(triangles);
+    
+    Raytracer *raytracer = new Raytracer(triangles, lights);
     
     Ray ray;
     Sample sample;
+    Color color;
 
     while (sampler->getSample(&sample)) {
-        Color color;
         camera->generateRay(sample, &ray);
-        raytracer->trace(ray, 0, &color);
+        raytracer->trace(ray, &color);
         film->commit(sample, color);
     }
     
@@ -41,7 +43,8 @@ Scene::Scene(const char* input, const char* output) {
     string str, cmd;
     ifstream in;
     
-    vector<Point*> vertices;
+    vector<Point> vertices;
+    BRDF brdf;
     
     in.open(input);
     
@@ -62,15 +65,15 @@ Scene::Scene(const char* input, const char* output) {
                 if (cmd == "directional") {
                     validinput = readvals(s, 6, values);
                     if (validinput) {
-//                        
 //                        vec3 posn = vec3(values[0],values[1],values[2]);
 //                        vec3 col = vec3(values[3],values[4],values[5]);
 //                        vec3 dir = vec3(transfstack.top() * vec4(posn, 0), 3);
 //                        Light light = Light(dir,col,0);
-//                        
-//                        lights.push_back(light);
-//                        
-//                        
+                        
+                        Color color = Color(values[3],values[4],values[5]);
+                        Vector direction = Vector(0, 0, 0);
+
+                        lights.push_back(Light(color, direction, LightDirectional));
                     }
                     
                 }
@@ -84,7 +87,10 @@ Scene::Scene(const char* input, const char* output) {
 //                        vec3 dir = vec3(transfstack.top() * vec4(posn, 1));
 //                        Light light = Light(dir,col,1,attenuation);
 //                        
-//                        lights.push_back(light);
+                        Color color = Color(values[3],values[4],values[5]);
+                        Vector direction = Vector(0, 0, 0);
+                        
+                        lights.push_back(Light(color, direction, LightPoint));
                     }
                 }
                 else if (cmd == "attenuation") {
@@ -141,43 +147,40 @@ Scene::Scene(const char* input, const char* output) {
 //                        vec3 vert1 = vec3(transfstack.top() * temp1);
 //                        vec3 vert2 = vec3(transfstack.top() * temp2);
 //                        
-//                        Triangle triangle = Triangle( vert0, vert1,vert2);
-//                        triangle.setBSDF(ambient, diffuse, specular, emission, shininess);
-//                        triangles.push_back (triangle);
-                        
-                        Point *vert0 = vertices[(int) values[0]];
-                        Point *vert1 = vertices[(int) values[1]];
-                        Point *vert2 = vertices[(int) values[2]];
+                        Point vert0 = vertices[(int) values[0]];
+                        Point vert1 = vertices[(int) values[1]];
+                        Point vert2 = vertices[(int) values[2]];
 
-                        Triangle *triangle = new Triangle(vert0, vert1, vert2);
+                        Triangle triangle = Triangle(vert0, vert1, vert2);
+                        triangle.brdf = brdf;
                         triangles.push_back(triangle);
                     }
                 }
-//                else if(cmd == "maxverts"){
-//                    validinput = readvals(s,1,values);
-//                    if (validinput){
-//                    }
-//                }
+                else if(cmd == "maxverts"){
+                    validinput = readvals(s,1,values);
+                    if (validinput){
+                    }
+                }
                 else if(cmd == "vertex") {
                     validinput = readvals(s,3,values);
                     if (validinput){
-                        vertices.push_back(new Point(values[0],values[1],values[2]));
+                        vertices.push_back(Point(values[0],values[1],values[2]));
                     }
                 }
                 else if (cmd == "ambient") {
                     validinput = readvals(s, 3, values); // colors
                     if (validinput) {
-//                        ambient = vec3(values[0],values[1],values[2]);
+                        brdf.ka = Color(values[0],values[1],values[2]);
                     }
                 } else if (cmd == "diffuse") {
                     validinput = readvals(s, 3, values);
                     if (validinput) {
-//                        diffuse = vec3(values[0],values[1],values[2]);
+                        brdf.kd = Color(values[0],values[1],values[2]);
                     }
                 } else if (cmd == "specular") {
                     validinput = readvals(s, 3, values);
                     if (validinput) {
-//                        specular = vec3(values[0],values[1],values[2]);
+                        brdf.ks = Color(values[0],values[1],values[2]);
                     }
                 } else if (cmd == "emission") {
                     validinput = readvals(s, 3, values);
@@ -246,8 +249,7 @@ Scene::Scene(const char* input, const char* output) {
     }
 }
 
-bool Scene::readvals(stringstream &s, const int numvals, double* values)
-{
+bool Scene::readvals(stringstream &s, const int numvals, double* values) {
     for (int i = 0; i < numvals; i++) {
         s >> values[i];
         

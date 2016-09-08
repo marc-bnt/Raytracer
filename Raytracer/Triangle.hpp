@@ -7,15 +7,17 @@
 //
 
 #include "Ray.hpp"
+#include "BRDF.hpp"
 
 class Triangle {
 private:
-    Point* point1;
-    Point* point2;
-    Point* point3;
+    Point point1;
+    Point point2;
+    Point point3;
 public:
-    Triangle();
-    Triangle(Point *point1, Point* point2, Point* point3);
+    BRDF brdf;
     bool intersect(Ray r, double* t);
     bool trace(Ray r, double distance);
+    Triangle();
+    Triangle(Point point1, Point point2, Point point3);
 };

@@ -6,6 +6,9 @@
 //
 //
 
+#ifndef Color_hpp
+#define Color_hpp
+
 class Color
 {
 public:
@@ -15,3 +18,5 @@ public:
     Color();
     Color(float r, float g, float b);
 };
+
+#endif /* Color_hpp */

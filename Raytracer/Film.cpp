@@ -13,7 +13,7 @@
 using namespace std;
 
 void Film::commit(Sample& sample, Color& color) {
-    
+    colors[(int) sample.y][(int) sample.x] = color;
 }
 
 void Film::writeImage() {
@@ -22,6 +22,19 @@ void Film::writeImage() {
     if (!bitmap) {
         cerr << "Unable to create file" << output << "\n";
         throw 2;
+    }
+    
+    for (int i = 0; i < width; i++) {
+        for (int j = 0; j < height; j++) {
+            Color color = colors[j][i];
+            RGBQUAD pixelColor;
+            
+            pixelColor.rgbBlue = color.r * 255.0;
+            pixelColor.rgbGreen = color.g * 255.0;
+            pixelColor.rgbRed = color.b * 255.0;
+            
+            FreeImage_SetPixelColor(bitmap, i, j, &pixelColor);
+        }
     }
     
     if (!FreeImage_Save(FIF_PNG, bitmap, output, 0)) {

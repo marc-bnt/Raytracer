@@ -8,24 +8,27 @@
 
 #include "Raytracer.hpp"
 
-void Raytracer::trace(Ray& ray, int depth, Color* color) {
-    for (int i = 0; i < triangles.size(); i++) {
-        Triangle *triangle = triangles[i];
-        
-    	double t1 =-2;
+void Raytracer::trace(Ray& ray, Color* color) {
+    double t;
     
-        if (triangle->intersect(ray, &t1)) {
-            color->g = 1.0;
-        }
-    }
+    color->r = 0.0;
+    color->g = 0.0;
+    color->b = 0.0;
     
     //    if (depth exceed some threshold) {
     //        Make the color black and return
     //    }
-    //    if (!primitive.intersect(ray, &thit, &in) {
-    //        // No intersection
-    //        Make the color black and return
-    //    }
+
+    for (int i = 0; i < triangles.size(); i++) {
+        Triangle triangle = triangles[i];
+        
+        if (!triangle.intersect(ray, &t)) {
+            continue;
+        }
+        
+        *color = triangle.brdf.kd;
+    }
+    
     //    // Obtain the brdf at intersection point
     //    in.primitive->getBRDF(in.local, &brdf);
     //
@@ -51,6 +54,7 @@ void Raytracer::trace(Ray& ray, int depth, Color* color) {
     
 }
 
-Raytracer::Raytracer(vector<Triangle*> triangles) {
+Raytracer::Raytracer(vector<Triangle> triangles, vector<Light> lights) {
     this->triangles = triangles;
+    this->lights = lights;
 }

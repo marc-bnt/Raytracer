@@ -10,6 +10,7 @@
 #include <sstream>
 #include "Camera.hpp"
 #include "Triangle.hpp"
+#include "Light.hpp"
 
 using namespace std;
 
@@ -21,7 +22,8 @@ private:
     float height;
     Camera* camera;
     
-    vector<Triangle*> triangles;
+    vector<Triangle> triangles;
+    vector<Light> lights;
     
     bool readvals(stringstream &s, const int numvals, double* values);
 

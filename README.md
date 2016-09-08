@@ -1,3 +1,3 @@
 # Raytracer
 
-Raytracer written in C++
+Raytracer written in C++.

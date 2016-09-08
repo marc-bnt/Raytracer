@@ -10,14 +10,16 @@
 #import "Color.hpp"
 #import "Ray.hpp"
 #import "Triangle.hpp"
+#import "Light.hpp"
 
 using namespace std;
 
 class Raytracer
 {
 private:
-    vector<Triangle*> triangles;
+    vector<Triangle> triangles;
+    vector<Light> lights;
 public:
-    Raytracer(vector<Triangle*> triangles);
-    void trace(Ray& ray, int depth, Color* color);
+    Raytracer(vector<Triangle> triangles, vector<Light> ligths);
+    void trace(Ray& ray, Color* color);
 };
