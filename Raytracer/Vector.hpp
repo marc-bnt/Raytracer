@@ -32,8 +32,12 @@ public:
     
     Vector operator*(const float other);
 
+    Vector operator-() const;
+
     Vector(float x, float y, float z);
     Vector();
 };
+
+Vector operator*(float x, const Vector& y);
 
 #endif /* Vector_hpp */

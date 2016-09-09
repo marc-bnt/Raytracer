@@ -9,20 +9,17 @@
 #ifndef Triangle_hpp
 #define Triangle_hpp
 
-#include "Ray.hpp"
+#include "Shape.hpp"
 #include "BRDF.hpp"
 
-class Triangle {
+class Triangle : public Shape {
 private:
     Point point1;
     Point point2;
     Point point3;
 public:
-    Point position;
-    Vector normal;
-    
-    BRDF brdf;
-    bool intersect(Ray r, double* t);
+    bool intersect(Ray& ray, float* thit, LocalGeo* local);
+
     bool trace(Ray r, double distance);
     Triangle();
     Triangle(Point point1, Point point2, Point point3);

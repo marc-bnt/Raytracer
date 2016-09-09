@@ -22,13 +22,13 @@ void Scene::render() {
     Sampler* sampler = new Sampler(width, height);
     Film* film = new Film(output, width, height);
     
-    Raytracer *raytracer = new Raytracer(triangles, lights, camera->eye);
+    Raytracer *raytracer = new Raytracer(aggregate, lights, camera->eye);
     
     Ray ray;
     Sample sample;
-    Color color;
-
     while (sampler->getSample(&sample)) {
+        Color color = Color(0, 0, 0);
+
         camera->generateRay(sample, &ray);
         raytracer->trace(ray, &color);
         film->commit(sample, color);
@@ -134,6 +134,11 @@ Scene::Scene(const char* input, const char* output) {
 //                        sphere.setBSDF(ambient, diffuse, specular, emission, shininess);
 //                        sphere.setTransform(transfstack.top());
 //                        spheres.push_back (sphere);
+                        
+//                        Sphere* sphere = new Sphere(Point(values[0],values[1],values[2]), values[3]);
+//
+//                        GeometricPrimitive *primitive = new GeometricPrimitive(sphere, BRDF(brdf.kd, brdf.ks, brdf.ka, brdf.kr));
+//                        aggregate.list.push_back(primitive);
                     }
                 }
                 else if (cmd == "tri") {
@@ -151,9 +156,10 @@ Scene::Scene(const char* input, const char* output) {
                         Point vert1 = vertices[(int) values[1]];
                         Point vert2 = vertices[(int) values[2]];
 
-                        Triangle triangle = Triangle(vert0, vert1, vert2);
-                        triangle.brdf = brdf;
-                        triangles.push_back(triangle);
+                        Triangle* triangle = new Triangle(vert0, vert1, vert2);
+                        
+                        GeometricPrimitive *primitive = new GeometricPrimitive(triangle, BRDF(brdf.kd, brdf.ks, brdf.ka, brdf.kr));
+                        aggregate.list.push_back(primitive);
                     }
                 }
                 else if(cmd == "maxverts"){

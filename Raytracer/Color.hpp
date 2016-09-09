@@ -18,6 +18,9 @@ public:
     Color();
     Color(float r, float g, float b);
     
+    Color operator*(const Color& other);
+    Color operator*(const float other);
+
     Color operator+(const Color& other);
     Color& operator+=(const Color& other);
 };

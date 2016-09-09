@@ -9,19 +9,24 @@
 #import <vector>
 #import "Color.hpp"
 #import "Ray.hpp"
+#import "Sphere.hpp"
 #import "Triangle.hpp"
 #import "Light.hpp"
+#import "AggregatePrimitive.hpp"
 
 using namespace std;
 
 class Raytracer
 {
 private:
-    vector<Triangle> triangles;
+    AggregatePrimitive primitives;
     vector<Light> lights;
     Point eye;
+    
 public:
-    Color shading(Triangle triangle, BRDF &brdf, Ray lray, Color lcolor);
-    Raytracer(vector<Triangle> triangles, vector<Light> ligths, Point eye);
+    Color shading(LocalGeo &localGeo, BRDF &brdf, Ray lray, Color lcolor);
+
     void trace(Ray& ray, Color* color);
+
+    Raytracer(AggregatePrimitive& primitives, vector<Light> &lights, Point eye);
 };

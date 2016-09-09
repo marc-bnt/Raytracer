@@ -23,6 +23,11 @@
 		4985169E1D7EF3E3005FB22E /* Sampler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4985169C1D7EF3E3005FB22E /* Sampler.cpp */; };
 		498516A11D7F0C63005FB22E /* Triangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4985169F1D7F0C63005FB22E /* Triangle.cpp */; };
 		4991A2BE1D80284A00DA0765 /* test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4991A2BC1D80284A00DA0765 /* test.cpp */; };
+		49E910531D82DEF100CB7DD9 /* Sphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49E910511D82DEF100CB7DD9 /* Sphere.cpp */; };
+		49E910561D82E37100CB7DD9 /* LocalGeo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49E910541D82E37100CB7DD9 /* LocalGeo.cpp */; };
+		49E9105F1D82EB7F00CB7DD9 /* Intersection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49E9105D1D82EB7F00CB7DD9 /* Intersection.cpp */; };
+		49E910621D82F02F00CB7DD9 /* AggregatePrimitive.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49E910601D82F02F00CB7DD9 /* AggregatePrimitive.cpp */; };
+		49E910651D82F0BF00CB7DD9 /* GeometricPrimitive.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49E910631D82F0BF00CB7DD9 /* GeometricPrimitive.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -73,6 +78,18 @@
 		498516A01D7F0C63005FB22E /* Triangle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Triangle.hpp; sourceTree = "<group>"; };
 		4991A2BC1D80284A00DA0765 /* test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test.cpp; sourceTree = "<group>"; };
 		4991A2BD1D80284A00DA0765 /* test.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = test.hpp; sourceTree = "<group>"; };
+		49E910511D82DEF100CB7DD9 /* Sphere.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sphere.cpp; sourceTree = "<group>"; };
+		49E910521D82DEF100CB7DD9 /* Sphere.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Sphere.hpp; sourceTree = "<group>"; };
+		49E910541D82E37100CB7DD9 /* LocalGeo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LocalGeo.cpp; sourceTree = "<group>"; };
+		49E910551D82E37100CB7DD9 /* LocalGeo.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = LocalGeo.hpp; sourceTree = "<group>"; };
+		49E910581D82E61900CB7DD9 /* Shape.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Shape.hpp; sourceTree = "<group>"; };
+		49E9105B1D82EB2F00CB7DD9 /* Primitive.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Primitive.hpp; sourceTree = "<group>"; };
+		49E9105D1D82EB7F00CB7DD9 /* Intersection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Intersection.cpp; sourceTree = "<group>"; };
+		49E9105E1D82EB7F00CB7DD9 /* Intersection.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Intersection.hpp; sourceTree = "<group>"; };
+		49E910601D82F02F00CB7DD9 /* AggregatePrimitive.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AggregatePrimitive.cpp; sourceTree = "<group>"; };
+		49E910611D82F02F00CB7DD9 /* AggregatePrimitive.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AggregatePrimitive.hpp; sourceTree = "<group>"; };
+		49E910631D82F0BF00CB7DD9 /* GeometricPrimitive.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GeometricPrimitive.cpp; sourceTree = "<group>"; };
+		49E910641D82F0BF00CB7DD9 /* GeometricPrimitive.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GeometricPrimitive.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +157,18 @@
 				494DF50B1D81B38A00F9809C /* BRDF.hpp */,
 				494DF50D1D81B8D900F9809C /* Light.cpp */,
 				494DF50E1D81B8D900F9809C /* Light.hpp */,
+				49E910511D82DEF100CB7DD9 /* Sphere.cpp */,
+				49E910521D82DEF100CB7DD9 /* Sphere.hpp */,
+				49E910541D82E37100CB7DD9 /* LocalGeo.cpp */,
+				49E910551D82E37100CB7DD9 /* LocalGeo.hpp */,
+				49E910581D82E61900CB7DD9 /* Shape.hpp */,
+				49E9105B1D82EB2F00CB7DD9 /* Primitive.hpp */,
+				49E9105D1D82EB7F00CB7DD9 /* Intersection.cpp */,
+				49E9105E1D82EB7F00CB7DD9 /* Intersection.hpp */,
+				49E910601D82F02F00CB7DD9 /* AggregatePrimitive.cpp */,
+				49E910611D82F02F00CB7DD9 /* AggregatePrimitive.hpp */,
+				49E910631D82F0BF00CB7DD9 /* GeometricPrimitive.cpp */,
+				49E910641D82F0BF00CB7DD9 /* GeometricPrimitive.hpp */,
 			);
 			path = Raytracer;
 			sourceTree = "<group>";
@@ -201,6 +230,8 @@
 			files = (
 				494DF50F1D81B8D900F9809C /* Light.cpp in Sources */,
 				498516951D7EE168005FB22E /* Sample.cpp in Sources */,
+				49E910531D82DEF100CB7DD9 /* Sphere.cpp in Sources */,
+				49E910621D82F02F00CB7DD9 /* AggregatePrimitive.cpp in Sources */,
 				4985168C1D7EDAFF005FB22E /* Point.cpp in Sources */,
 				4985169B1D7EE222005FB22E /* Camera.cpp in Sources */,
 				498516921D7EE111005FB22E /* Film.cpp in Sources */,
@@ -210,10 +241,13 @@
 				498516A11D7F0C63005FB22E /* Triangle.cpp in Sources */,
 				498516891D7EDAED005FB22E /* Vector.cpp in Sources */,
 				4991A2BE1D80284A00DA0765 /* test.cpp in Sources */,
+				49E9105F1D82EB7F00CB7DD9 /* Intersection.cpp in Sources */,
 				4985168F1D7EDBC8005FB22E /* Ray.cpp in Sources */,
 				494DF50C1D81B38A00F9809C /* BRDF.cpp in Sources */,
 				4985167E1D7ECBEF005FB22E /* Scene.cpp in Sources */,
 				498516711D7EC57E005FB22E /* main.cpp in Sources */,
+				49E910651D82F0BF00CB7DD9 /* GeometricPrimitive.cpp in Sources */,
+				49E910561D82E37100CB7DD9 /* LocalGeo.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

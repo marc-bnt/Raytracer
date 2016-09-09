@@ -32,7 +32,7 @@ vertex +1 -1 +1
 vertex +1 +1 +1
 vertex -1 +1 +1
 
-# Now, I actually define the cube.  Note that to avoid lighting/material 
+# Now, I actually define the cube.  Note that to avoid lighting/material
 # calculations, I am just using ambient to define the colors.
 # No lighting calculations should be performed since I haven't defined any 
 # lights.

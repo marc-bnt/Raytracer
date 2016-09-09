@@ -9,8 +9,11 @@
 #include <vector>
 #include <sstream>
 #include "Camera.hpp"
+#include "Sphere.hpp"
 #include "Triangle.hpp"
 #include "Light.hpp"
+#include "AggregatePrimitive.hpp"
+#include "GeometricPrimitive.hpp"
 
 using namespace std;
 
@@ -22,7 +25,7 @@ private:
     float height;
     Camera* camera;
     
-    vector<Triangle> triangles;
+    AggregatePrimitive aggregate;
     vector<Light> lights;
     
     bool readvals(stringstream &s, const int numvals, double* values);

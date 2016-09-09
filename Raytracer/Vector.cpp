@@ -41,6 +41,10 @@ Vector Vector::operator+(const Point& other) {
     return Vector(x + other.x, y + other.y, z + other.z);
 }
 
+Vector Vector::operator-() const {
+    return Vector(-x, -y, -z);
+}
+
 Vector Vector::operator-(const Vector& other) {
     return Vector(x - other.x, y - other.y, z - other.z);
 }
@@ -51,6 +55,10 @@ Vector Vector::operator-(const Point& other) {
 
 Vector Vector::operator*(const float other) {
     return Vector(x * other, y * other, z * other);
+}
+
+Vector operator*(float x, const Vector& y) {
+    return Vector(x * y.x, x * y.y, x * y.z);
 }
 
 Vector::Vector(float x, float y, float z) {

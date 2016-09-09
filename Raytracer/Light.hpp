@@ -27,7 +27,7 @@ public:
     Vector direction;
     LightType type;
     
-    void generateLightRay(Triangle& triangle, Ray* lray, Color* lcolor);
+    void generateLightRay(LocalGeo& localGeo, Ray* lray, Color* lcolor);
     
     Light();
 

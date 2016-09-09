@@ -9,20 +9,20 @@
 #include <cfloat>
 #include "Light.hpp"
 
-void Light::generateLightRay(Triangle& triangle, Ray* lray, Color* lcolor) {
+void Light::generateLightRay(LocalGeo& localGeo, Ray* lray, Color* lcolor) {
     *lcolor = this->color;
 
     switch (type) {
         case LightDirectional:
-            lray->pos = triangle.position;
-            lray->dir = direction * -1;
+            lray->pos = localGeo.pos;
+            lray->dir = -direction;
             lray->tMin = 0.01f;
             lray->tMax = FLT_MAX;
             break;
             
         case LightPoint:
-            lray->pos = triangle.position;
-            lray->dir = position - triangle.position;
+            lray->pos = localGeo.pos;
+            lray->dir = position - localGeo.pos;
             lray->tMin = 0.01f;
             lray->tMax = 1.0;
             break;

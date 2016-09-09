@@ -8,20 +8,16 @@
 
 #include "Triangle.hpp"
 
-bool Triangle::intersect(Ray r, double* t) {
+bool Triangle::intersect(Ray& ray, float* thit, LocalGeo* local) {
     Vector normal = (point2 - point1).cross(point3 - point1).normalize();
-    double dirDotN = r.dir.dot(normal);
+    double dirDotN = ray.dir.dot(normal);
     
     if (dirDotN == 0)
         return false;
         
-    *t = (point1.dot(normal) - r.pos.dot(normal)) / dirDotN;
+    *thit = (point1.dot(normal) - ray.pos.dot(normal)) / dirDotN;
 
-    Vector point = r.pos + (r.dir*(*t));
-    
-    // XXX
-    position = Point(point.x, point.y, point.z);
-    this->normal = normal;
+    Vector point = ray.pos + (ray.dir*(*thit));
     
     if (normal.dot((point2 - point1).cross(point - point1)) < 0) {
         return false;
@@ -35,6 +31,9 @@ bool Triangle::intersect(Ray r, double* t) {
         return false;
     }
  
+    local->pos = Point(point.x, point.y, point.z);
+    local->normal = normal;
+    
     return true;
 }
 
