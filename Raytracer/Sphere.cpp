@@ -12,7 +12,7 @@
 bool Sphere::intersect(Ray& ray, float* thit, LocalGeo* local) {
     float a = ray.dir.dot(ray.dir);
     float b = 2 * (ray.dir.dot(ray.pos - center));
-    float c = (ray.pos - center) .dot(ray.pos - center) - pow(radius, 2);
+    float c = (ray.pos - center).dot(ray.pos - center) - pow(radius, 2);
     
     float discriminant = pow(b, 2) - 4 * a * c;
     
