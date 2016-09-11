@@ -14,6 +14,7 @@
 #include "Sampler.hpp"
 #include "Raytracer.hpp"
 #include "BRDF.hpp"
+#include "Transformation.hpp"
 
 using namespace std;
 
@@ -136,8 +137,10 @@ Scene::Scene(const char* input, const char* output) {
 //                        spheres.push_back (sphere);
                         
                         Sphere* sphere = new Sphere(Point(values[0],values[1],values[2]), values[3]);
+                        Matrix transform = Matrix();
 
-                        GeometricPrimitive *primitive = new GeometricPrimitive(sphere, BRDF(brdf.kd, brdf.ks, brdf.ka, brdf.kr));
+                        GeometricPrimitive *primitive = new GeometricPrimitive(new Transformation(transform), sphere, BRDF(brdf.kd, brdf.ks, brdf.ka, brdf.kr));
+
                         aggregate.list.push_back(primitive);
                     }
                 }
@@ -158,7 +161,9 @@ Scene::Scene(const char* input, const char* output) {
 
                         Triangle* triangle = new Triangle(vert0, vert1, vert2);
                         
-                        GeometricPrimitive *primitive = new GeometricPrimitive(triangle, BRDF(brdf.kd, brdf.ks, brdf.ka, brdf.kr));
+                        Matrix transform = Matrix();
+                        
+                        GeometricPrimitive *primitive = new GeometricPrimitive(new Transformation(transform), triangle, BRDF(brdf.kd, brdf.ks, brdf.ka, brdf.kr));
                         aggregate.list.push_back(primitive);
                     }
                 }

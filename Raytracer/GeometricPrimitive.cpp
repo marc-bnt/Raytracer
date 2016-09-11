@@ -29,7 +29,9 @@ void GeometricPrimitive::getBRDF(LocalGeo& local, BRDF* brdf) {
     *brdf = this->brdf;
 }
 
-GeometricPrimitive::GeometricPrimitive(Shape* shape, BRDF brdf) {
+GeometricPrimitive::GeometricPrimitive(Transformation *objToWorld, Shape* shape, BRDF brdf) {
+    this->objToWorld = objToWorld;
+    this->worldToObj = new Transformation((*objToWorld).m.inverse());
     this->shape = shape;
     this->brdf = brdf;
 }
