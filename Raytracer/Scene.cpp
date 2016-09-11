@@ -135,10 +135,10 @@ Scene::Scene(const char* input, const char* output) {
 //                        sphere.setTransform(transfstack.top());
 //                        spheres.push_back (sphere);
                         
-//                        Sphere* sphere = new Sphere(Point(values[0],values[1],values[2]), values[3]);
-//
-//                        GeometricPrimitive *primitive = new GeometricPrimitive(sphere, BRDF(brdf.kd, brdf.ks, brdf.ka, brdf.kr));
-//                        aggregate.list.push_back(primitive);
+                        Sphere* sphere = new Sphere(Point(values[0],values[1],values[2]), values[3]);
+
+                        GeometricPrimitive *primitive = new GeometricPrimitive(sphere, BRDF(brdf.kd, brdf.ks, brdf.ka, brdf.kr));
+                        aggregate.list.push_back(primitive);
                     }
                 }
                 else if (cmd == "tri") {
