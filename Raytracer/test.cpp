@@ -11,6 +11,7 @@
 #include "Camera.hpp"
 #include "Triangle.hpp"
 #include "LocalGeo.hpp"
+#include "Matrix.hpp"
 
 #define EPSILON 0.000001
 
@@ -170,13 +171,76 @@ void testTriangle() {
     assert(compare(t, 4.380748));
 }
 
+void testMatrix() {
+    printf("Testing matrix\n");
+    
+    Matrix m;
+    Point p;
+    Vector v;
+
+    Point mp;
+    Vector mv;
+    
+    m = Matrix(0, 1, 2, 3,
+               4, 5, 6, 7,
+               8, 9, 10, 11,
+               12, 13, 14, 15);
+    
+    assert(compare(0, m.mat[0][0]));
+    assert(compare(1, m.mat[0][1]));
+    assert(compare(2, m.mat[0][2]));
+    assert(compare(3, m.mat[0][3]));
+
+    assert(compare(4, m.mat[1][0]));
+    assert(compare(5, m.mat[1][1]));
+    assert(compare(6, m.mat[1][2]));
+    assert(compare(7, m.mat[1][3]));
+
+    assert(compare(8, m.mat[2][0]));
+    assert(compare(9, m.mat[2][1]));
+    assert(compare(10, m.mat[2][2]));
+    assert(compare(11, m.mat[2][3]));
+
+    assert(compare(12, m.mat[3][0]));
+    assert(compare(13, m.mat[3][1]));
+    assert(compare(14, m.mat[3][2]));
+    assert(compare(15, m.mat[3][3]));
+    
+    // Matrix point translation
+    m = Matrix(1, 0, 0, 2,
+               0, 1, 0, 3,
+               0, 0, 1, 4,
+               0, 0, 0, 1);
+    
+    p = Point(1, 1, 1);
+    mp = m * p;
+    
+    assert(compare(3, mp.x));
+    assert(compare(4, mp.y));
+    assert(compare(5, mp.z));
+
+    // Matrix vector translation
+    m = Matrix(1, 0, 0, 2,
+               0, 1, 0, 3,
+               0, 0, 1, 4,
+               0, 0, 0, 1);
+    
+    v = Vector(1, 1, 1);
+    mv = m * v;
+    
+    assert(compare(3, mv.x));
+    assert(compare(4, mv.y));
+    assert(compare(5, mv.z));
+}
+
 void testAll() {
     printf("Runnig tests\n");
     
-    testVector();
-    testPoint();
-    testCamera();
-    testTriangle();
+//    testVector();
+//    testPoint();
+//    testCamera();
+//    testTriangle();
+    testMatrix();
     
     printf("All tests passed\n");
 }

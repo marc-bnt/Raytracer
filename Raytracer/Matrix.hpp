@@ -10,6 +10,8 @@
 #define Matrix_hpp
 
 #include <stdio.h>
+#include "Point.hpp"
+#include "Vector.hpp"
 
 class Matrix
 {
@@ -17,6 +19,10 @@ public:
     float mat[4][4];
     
     Matrix inverse();
+    
+    Point operator*(const Point& point);
+    Vector operator*(const Vector& vector);
+
     Matrix();
     
     Matrix(float r0c0, float r0c1, float r0c2, float r0c3,

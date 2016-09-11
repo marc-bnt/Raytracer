@@ -12,8 +12,8 @@
 #include "test.hpp"
 
 int main(int argc, const char * argv[]) {
-//    testAll();
-//    return 0;
+    testAll();
+    return 0;
     
     Scene *scene;
     
