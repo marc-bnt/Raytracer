@@ -161,7 +161,11 @@ Scene::Scene(const char* input, const char* output) {
 
                         Triangle* triangle = new Triangle(vert0, vert1, vert2);
                         
-                        Matrix transform = Matrix();
+                        Vector translation = Vector(1, 0, 0);
+                        Matrix transform = Matrix(1, 0, 0, translation.x,
+                                                  0, 1, 0, translation.y,
+                                                  0, 0, 1, translation.z,
+                                                  1, 0, 0, 1);
                         
                         GeometricPrimitive *primitive = new GeometricPrimitive(new Transformation(transform), triangle, BRDF(brdf.kd, brdf.ks, brdf.ka, brdf.kr));
                         aggregate.list.push_back(primitive);

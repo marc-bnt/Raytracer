@@ -152,18 +152,22 @@ void testTriangle() {
     printf("Testing triangle\n");
     
     Triangle triangle = Triangle(Point(-1, -1, 0), Point(1, -1, 0), Point(1, 1, 0));
-    double t;
+    float t;
     
     LocalGeo local;
+    Ray ray;
     
-//    assert(!triangle.intersect(Ray(Point(0, 0, 4), Vector(-0.326214, -0.244661, -0.913086)), &t));
-//    assert(compare(t, 4.380748));
-//    
-//    assert(triangle.intersect(Ray(Point(0, 0, 4), Vector(0, 0, -1)), &t));
-//    assert(compare(t, 4));
-//    
-//    assert(!triangle.intersect(Ray(Point(0, 0, 4), Vector(0.326214, 0.244661, -0.913086)), &t));
-//    assert(compare(t, 4.380748));
+    ray = Ray(Point(0, 0, 4), Vector(-0.326214, -0.244661, -0.913086));
+    assert(!triangle.intersect(ray, &t, &local));
+    assert(compare(t, 4.380748));
+
+    ray = Ray(Point(0, 0, 4), Vector(0, 0, -1));
+    assert(triangle.intersect(ray, &t, &local));
+    assert(compare(t, 4));
+
+    ray = Ray(Point(0, 0, 4), Vector(0.326214, 0.244661, -0.913086));
+    assert(!triangle.intersect(ray, &t, &local));
+    assert(compare(t, 4.380748));
 }
 
 void testAll() {

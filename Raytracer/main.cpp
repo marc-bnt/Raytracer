@@ -13,6 +13,7 @@
 
 int main(int argc, const char * argv[]) {
 //    testAll();
+//    return 0;
     
     Scene *scene;
     
