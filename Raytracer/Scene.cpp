@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <stack>
 #include "Scene.hpp"
 #include "Film.hpp"
 #include "Ray.hpp"
@@ -47,6 +48,12 @@ Scene::Scene(const char* input, const char* output) {
     vector<Point> vertices;
     BRDF brdf;
     
+    stack<Matrix> transfstack;
+    transfstack.push(Matrix(1, 0, 0, 0,
+                            0, 1, 0, 0,
+                            0, 0, 1, 0,
+                            0, 0, 0, 1));
+
     in.open(input);
     
     if (in.is_open()) {
@@ -131,43 +138,22 @@ Scene::Scene(const char* input, const char* output) {
                 else if (cmd == "sphere") {
                     validinput = readvals(s,4,values);
                     if (validinput) {
-//                        Sphere sphere = Sphere( vec3(values[0],values[1],values[2]), values[3]);
-//                        sphere.setBSDF(ambient, diffuse, specular, emission, shininess);
-//                        sphere.setTransform(transfstack.top());
-//                        spheres.push_back (sphere);
-                        
                         Sphere* sphere = new Sphere(Point(values[0],values[1],values[2]), values[3]);
-                        Matrix transform = Matrix();
 
-                        GeometricPrimitive *primitive = new GeometricPrimitive(new Transformation(transform), sphere, BRDF(brdf.kd, brdf.ks, brdf.ka, brdf.kr));
-
+                        GeometricPrimitive *primitive = new GeometricPrimitive(new Transformation(transfstack.top()), sphere, BRDF(brdf.kd, brdf.ks, brdf.ka, brdf.kr));
                         aggregate.list.push_back(primitive);
                     }
                 }
                 else if (cmd == "tri") {
                     validinput = readvals(s,3,values);
                     if (validinput) {
-//                        vec4 temp0 = vec4(vertices[(int)values[0]]);
-//                        vec4 temp1 = vec4(vertices[(int)values[1]]);
-//                        vec4 temp2 = vec4(vertices[(int)values[2]]);
-//                        
-//                        vec3 vert0 = vec3(transfstack.top() * temp0);
-//                        vec3 vert1 = vec3(transfstack.top() * temp1);
-//                        vec3 vert2 = vec3(transfstack.top() * temp2);
-//                        
                         Point vert0 = vertices[(int) values[0]];
                         Point vert1 = vertices[(int) values[1]];
                         Point vert2 = vertices[(int) values[2]];
 
                         Triangle* triangle = new Triangle(vert0, vert1, vert2);
                         
-                        Vector translation = Vector(1, 0, 0);
-                        Matrix transform = Matrix(1, 0, 0, translation.x,
-                                                  0, 1, 0, translation.y,
-                                                  0, 0, 1, translation.z,
-                                                  0, 0, 0, 1);
-                        
-                        GeometricPrimitive *primitive = new GeometricPrimitive(new Transformation(transform), triangle, BRDF(brdf.kd, brdf.ks, brdf.ka, brdf.kr));
+                        GeometricPrimitive *primitive = new GeometricPrimitive(new Transformation(transfstack.top()), triangle, BRDF(brdf.kd, brdf.ks, brdf.ka, brdf.kr));
                         aggregate.list.push_back(primitive);
                     }
                 }
@@ -211,45 +197,73 @@ Scene::Scene(const char* input, const char* output) {
                 else if (cmd == "translate") {
                     validinput = readvals(s,3,values);
                     if (validinput) {
-//                        vec3 t = vec3(values[0],values[1],values[2]);
-//                        
-//                        
-//                        mat4 m = transfstack.top() * translation3D(t);
-//                        transfstack.pop();
-//                        transfstack.push(m);
+                        Matrix transform = Matrix(1, 0, 0, values[0],
+                                                  0, 1, 0, values[1],
+                                                  0, 0, 1, values[2],
+                                                  0, 0, 0, 1);
+                        
+                        Matrix m = transfstack.top() * transform;
+                        transfstack.pop();
+                        transfstack.push(m);
                     }
                 }
                 else if (cmd == "scale") {
                     validinput = readvals(s,3,values); 
                     if (validinput) {
-//                        vec3 t = vec3(values[0],values[1],values[2]);
-//                        
-//                        
-//                        mat4 m = transfstack.top() * scaling3D(t);
-//                        transfstack.pop();
-//                        transfstack.push(m);
+                        Matrix transform = Matrix(values[0], 0, 0, 0,
+                                                  0, values[1], 0, 0,
+                                                  0, 0, values[2], 0,
+                                                  0, 0, 0, 1);
+                        
+                        Matrix m = transfstack.top() * transform;
+                        transfstack.pop();
+                        transfstack.push(m);
                     }
                 }
                 else if (cmd == "rotate") {
                     validinput = readvals(s,4,values); 
                     if (validinput) {
-//                        vec3 axis = vec3(values[0],values[1],values[2]);
-//                        double ang = values[3];
-//                        
-//                        mat4 m = transfstack.top() *  rotation3D(axis, ang);
-//                        transfstack.pop();
-//                        transfstack.push(m);
+                        Vector axis = Vector(values[0], values[1], values[2]).normalize();
+                        
+                        double angleRad = values[3] * M_PI / 180.0,
+                        c = cos(angleRad),
+                        s = sin(angleRad),
+                        t = 1.0 - c;
+                        
+                        Matrix transform = Matrix(t * axis.x * axis.x + c,
+                                                  t * axis.x * axis.y - s * axis.z,
+                                                  t * axis.x * axis.y + s * axis.y,
+                                                  0,
+                                                  
+                                                  t * axis.x * axis.y + s * axis.z,
+                                                  t * axis.y * axis.y + c,
+                                                  t * axis.y * axis.z - s * axis.x,
+                                                  0,
+                                                       
+                                                  t * axis.x * axis.z - s * axis.y,
+                                                  t * axis.y * axis.z + s * axis.x,
+                                                  t * axis.z * axis.z + c,
+                                                  0,
+                                                       
+                                                  0,
+                                                  0,
+                                                  0,
+                                                  1);
+       
+                        Matrix m = transfstack.top() * transform;
+                        transfstack.pop();
+                        transfstack.push(m);
                     }
                 }
                 else if (cmd == "pushTransform") {
-//                    transfstack.push(transfstack.top()); 
+                    transfstack.push(transfstack.top()); 
                 }
                 else if (cmd == "popTransform") {
-//                    if (transfstack.size() <= 1) {
-//                        cerr << "Stack has no elements.  Cannot Pop\n"; 
-//                    } else {
-//                        transfstack.pop(); 
-//                    }
+                    if (transfstack.size() <= 1) {
+                        cerr << "Stack has no elements.  Cannot Pop\n"; 
+                    } else {
+                        transfstack.pop(); 
+                    }
                 }
                 else {
                     cerr << "Unknown Command: " << cmd << " Skipping \n"; 

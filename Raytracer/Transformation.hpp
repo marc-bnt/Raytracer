@@ -11,6 +11,8 @@
 
 #include <stdio.h>
 #include "Matrix.hpp"
+#include "Ray.hpp"
+#include "LocalGeo.hpp"
 
 class Transformation
 {
@@ -19,6 +21,9 @@ public:
     
     // The inverse transpose of m
     Matrix minvt;
+
+    Ray operator*(const Ray& other);
+    LocalGeo operator*(const LocalGeo& other);
 
     Transformation();
     Transformation(Matrix m);

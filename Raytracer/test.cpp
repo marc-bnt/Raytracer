@@ -231,15 +231,155 @@ void testMatrix() {
     assert(compare(3, mv.x));
     assert(compare(4, mv.y));
     assert(compare(5, mv.z));
+    
+    Matrix inverse;
+    
+//    // Matrix inverse translation
+//    m = Matrix(1, 0, 0, 2,
+//               0, 1, 0, 3,
+//               0, 0, 1, 4,
+//               0, 0, 0, 1);
+//    
+//    inverse = m.inverse();
+//    
+//    assert(compare(1, inverse.mat[0][0]));
+//    assert(compare(0, inverse.mat[0][1]));
+//    assert(compare(0, inverse.mat[0][2]));
+//    assert(compare(-2, inverse.mat[0][3]));
+//    
+//    assert(compare(0, inverse.mat[1][0]));
+//    assert(compare(1, inverse.mat[1][1]));
+//    assert(compare(0, inverse.mat[1][2]));
+//    assert(compare(-3, inverse.mat[1][3]));
+//    
+//    assert(compare(0, inverse.mat[2][0]));
+//    assert(compare(0, inverse.mat[2][1]));
+//    assert(compare(1, inverse.mat[2][2]));
+//    assert(compare(-4, inverse.mat[2][3]));
+//    
+//    assert(compare(0, inverse.mat[3][0]));
+//    assert(compare(0, inverse.mat[3][1]));
+//    assert(compare(0, inverse.mat[3][2]));
+//    assert(compare(1, inverse.mat[3][3]));
+    
+    // Matrix transpose translation
+    m = Matrix(1, 0, 0, 2,
+               0, 1, 0, 3,
+               0, 0, 1, 4,
+               0, 0, 0, 1);
+    
+    Matrix transpose = m.transpose();
+    
+    assert(compare(1, transpose.mat[0][0]));
+    assert(compare(0, transpose.mat[0][1]));
+    assert(compare(0, transpose.mat[0][2]));
+    assert(compare(0, transpose.mat[0][3]));
+    
+    assert(compare(0, transpose.mat[1][0]));
+    assert(compare(1, transpose.mat[1][1]));
+    assert(compare(0, transpose.mat[1][2]));
+    assert(compare(0, transpose.mat[1][3]));
+    
+    assert(compare(0, transpose.mat[2][0]));
+    assert(compare(0, transpose.mat[2][1]));
+    assert(compare(1, transpose.mat[2][2]));
+    assert(compare(0, transpose.mat[2][3]));
+    
+    assert(compare(2, transpose.mat[3][0]));
+    assert(compare(3, transpose.mat[3][1]));
+    assert(compare(4, transpose.mat[3][2]));
+    assert(compare(1, transpose.mat[3][3]));
+    
+    m = Matrix(1, 0, 0, 2,
+               0, 1, 0, 3,
+               0, 0, 1, 4,
+               0, 0, 0, 1);
+    
+    Matrix multiplied = m * m;
+
+    assert(compare(1, multiplied.mat[0][0]));
+    assert(compare(0, multiplied.mat[0][1]));
+    assert(compare(0, multiplied.mat[0][2]));
+    assert(compare(4, multiplied.mat[0][3]));
+    
+    assert(compare(0, multiplied.mat[1][0]));
+    assert(compare(1, multiplied.mat[1][1]));
+    assert(compare(0, multiplied.mat[1][2]));
+    assert(compare(6, multiplied.mat[1][3]));
+    
+    assert(compare(0, multiplied.mat[2][0]));
+    assert(compare(0, multiplied.mat[2][1]));
+    assert(compare(1, multiplied.mat[2][2]));
+    assert(compare(8, multiplied.mat[2][3]));
+    
+    assert(compare(0, multiplied.mat[3][0]));
+    assert(compare(0, multiplied.mat[3][1]));
+    assert(compare(0, multiplied.mat[3][2]));
+    assert(compare(1, multiplied.mat[3][3]));
+
+    m = Matrix(3, 0, 0, 2,
+               0, 1, 0, 3,
+               0, 0, 0.5, 4,
+               0, 0, 0, 1);
+    
+    multiplied = m * m;
+    
+    assert(compare(9, multiplied.mat[0][0]));
+    assert(compare(0, multiplied.mat[0][1]));
+    assert(compare(0, multiplied.mat[0][2]));
+    assert(compare(8, multiplied.mat[0][3]));
+    
+    assert(compare(0, multiplied.mat[1][0]));
+    assert(compare(1, multiplied.mat[1][1]));
+    assert(compare(0, multiplied.mat[1][2]));
+    assert(compare(6, multiplied.mat[1][3]));
+    
+    assert(compare(0, multiplied.mat[2][0]));
+    assert(compare(0, multiplied.mat[2][1]));
+    assert(compare(0.25, multiplied.mat[2][2]));
+    assert(compare(6, multiplied.mat[2][3]));
+    
+    assert(compare(0, multiplied.mat[3][0]));
+    assert(compare(0, multiplied.mat[3][1]));
+    assert(compare(0, multiplied.mat[3][2]));
+    assert(compare(1, multiplied.mat[3][3]));
+    
+    // Transformation matrix inverse
+    m = Matrix(0.707, -0.177, 0, 0,
+               0.707, 0.177, 0, 0,
+               0, 0, 0.25, 0.5,
+               0, 0, 0, 1);
+    
+    inverse = m.inverse();
+    
+    assert(compare(0.707214, inverse.mat[0][0]));
+    assert(compare(0.707214, inverse.mat[0][1]));
+    assert(compare(0, inverse.mat[0][2]));
+    assert(compare(0, inverse.mat[0][3]));
+    
+    assert(compare(-2.824858, inverse.mat[1][0]));
+    assert(compare(2.824858, inverse.mat[1][1]));
+    assert(compare(0, inverse.mat[1][2]));
+    assert(compare(0, inverse.mat[1][3]));
+    
+    assert(compare(0, inverse.mat[2][0]));
+    assert(compare(0, inverse.mat[2][1]));
+    assert(compare(4, inverse.mat[2][2]));
+    assert(compare(-2, inverse.mat[2][3]));
+    
+    assert(compare(0, inverse.mat[3][0]));
+    assert(compare(0, inverse.mat[3][1]));
+    assert(compare(0, inverse.mat[3][2]));
+    assert(compare(1, inverse.mat[3][3]));
 }
 
 void testAll() {
     printf("Runnig tests\n");
     
-//    testVector();
-//    testPoint();
-//    testCamera();
-//    testTriangle();
+    testVector();
+    testPoint();
+    testCamera();
+    testTriangle();
     testMatrix();
     
     printf("All tests passed\n");

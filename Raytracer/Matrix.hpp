@@ -18,10 +18,15 @@ class Matrix
 public:
     float mat[4][4];
     
+    Matrix linear();
     Matrix inverse();
+    Matrix transpose();
     
     Point operator*(const Point& point);
     Vector operator*(const Vector& vector);
+    Matrix operator*(const Matrix& other);
+
+    Matrix operator-() const;
 
     Matrix();
     
