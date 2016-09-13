@@ -1,9 +1,6 @@
 precompile/
 *.o
-*.bmp
-*.jpg
-*.jpeg
-*.png
+output.png
 /scene
 /libraries/gflags/
 

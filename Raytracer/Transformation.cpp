@@ -9,11 +9,11 @@
 #include "Transformation.hpp"
 
 Ray Transformation::operator*(const Ray& other) {
-    return Ray(m * other.pos, (m.linear() * other.dir));
+    return Ray(m * other.pos, (m * other.dir).normalize(), other.tMin, other.tMax);
 }
 
 LocalGeo Transformation::operator*(const LocalGeo& other) {
-    return LocalGeo(m * other.pos, (minvt.linear() * other.normal).normalize());
+    return LocalGeo(m * other.pos, (minvt * other.normal).normalize());
 }
 
 Transformation::Transformation() {
@@ -21,5 +21,5 @@ Transformation::Transformation() {
 
 Transformation::Transformation(Matrix m) {
     this->m = m;
-    this->minvt = m.linear().inverse().transpose();
+    this->minvt = m.inverse().transpose();
 }

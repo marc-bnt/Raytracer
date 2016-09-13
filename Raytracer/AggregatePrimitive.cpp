@@ -8,12 +8,14 @@
 
 #include <stdlib.h> 
 #include "float.h"
+#include "math.h"
 #include "AggregatePrimitive.hpp"
 
 bool AggregatePrimitive::intersect(Ray& ray, float* thit, Intersection* in) {
     bool intersects = false;
     
     *thit = FLT_MAX;
+    float dhit = FLT_MAX;
     
     for (int i = 0; i < list.size(); i++) {
         Primitive *primitive = list[i];
@@ -24,8 +26,13 @@ bool AggregatePrimitive::intersect(Ray& ray, float* thit, Intersection* in) {
         if (primitive->intersect(ray, &geometricThit, &geometricIntersection)) {
             intersects = true;
             
+            Point point = geometricIntersection.localGeo.pos;
+            
             // Get the closest hit
-            if (geometricThit < *thit) {
+            float dist = sqrt(pow(ray.pos.x - point.x, 2) + pow(ray.pos.y - point.y, 2) + pow(ray.pos.z - point.z, 2));
+            
+            if(dist < dhit && geometricThit > 0) {
+                dhit = dist;
                 *thit = geometricThit;
                 *in = geometricIntersection;
             }
@@ -35,6 +42,13 @@ bool AggregatePrimitive::intersect(Ray& ray, float* thit, Intersection* in) {
 }
 
 bool AggregatePrimitive::intersectP(Ray& ray) {
+    for (int i = 0; i < list.size(); i++) {
+        Primitive *primitive = list[i];
+        
+        if (primitive->intersectP(ray))
+            return true;
+    }
+    
     return false;
 }
 

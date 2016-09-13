@@ -17,6 +17,7 @@ public:
     float x;
     float y;
     float z;
+    float w = 1;
 
     double dot(const Vector& other);
     Vector operator+(const Vector& other);

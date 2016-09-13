@@ -376,10 +376,10 @@ void testMatrix() {
 void testAll() {
     printf("Runnig tests\n");
     
-    testVector();
-    testPoint();
-    testCamera();
-    testTriangle();
+//    testVector();
+//    testPoint();
+//    testCamera();
+//    testTriangle();
     testMatrix();
     
     printf("All tests passed\n");

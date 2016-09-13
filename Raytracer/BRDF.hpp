@@ -17,9 +17,10 @@ public:
     Color kd; // diffuse
     Color ks; // specular
     Color ka; // ambient
-    float kr; // mirror reflection coefficient
+    Color ke; // emission
+    float shininess;
     BRDF();
-    BRDF(Color kd, Color ks, Color ka, float kr);
+    BRDF(Color kd, Color ks, Color ka, Color ke, float emission);
 };
 
 #endif /* BRDF_hpp */

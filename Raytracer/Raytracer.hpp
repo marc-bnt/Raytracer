@@ -23,9 +23,11 @@ private:
     vector<Light> lights;
     Point eye;
     
-public:
+    Ray createReflectRay(LocalGeo &local, Ray &ray);
     Color shading(LocalGeo &localGeo, BRDF &brdf, Ray lray, Color lcolor);
-
+    
+    void trace(Ray& ray, int depth, Color* color, Color component);
+public:
     void trace(Ray& ray, Color* color);
 
     Raytracer(AggregatePrimitive& primitives, vector<Light> &lights, Point eye);

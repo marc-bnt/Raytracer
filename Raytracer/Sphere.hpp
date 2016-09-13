@@ -18,8 +18,8 @@ private:
     double radius;
 public:
     bool intersect(Ray& ray, float* thit, LocalGeo* local);
+    bool intersectP(Ray& ray);
 
-    bool trace(Ray r, double distance);
     Sphere();
     Sphere(Point center, double radius);
 };

@@ -9,13 +9,7 @@
 #include "Matrix.hpp"
 #include "math.h"
 
-Matrix Matrix::linear() {
-    return Matrix(mat[0][0], mat[0][1], mat[0][2], 0,
-                  mat[1][0], mat[1][1], mat[1][2], 0,
-                  mat[2][0], mat[2][1], mat[2][2], 0,
-                  0, 0, 0, 0);
-}
-
+// Inverses the matrix using Gaussian elimination with partial pivoting.
 Matrix Matrix::inverse() {
     Matrix a(*this);
     Matrix b(1, 0, 0, 0,
@@ -116,15 +110,15 @@ Matrix Matrix::transpose() {
 }
 
 Point Matrix::operator*(const Point& point) {
-    return Point(mat[0][0] * point.x + mat[0][1] * point.y + mat[0][2] * point.z + mat[0][3],
-                 mat[1][0] * point.x + mat[1][1] * point.y + mat[1][2] * point.z + mat[1][3],
-                 mat[2][0] * point.x + mat[2][1] * point.y + mat[2][2] * point.z + mat[2][3]);
+    return Point(mat[0][0] * point.x + mat[0][1] * point.y + mat[0][2] * point.z + mat[0][3] * point.w,
+                 mat[1][0] * point.x + mat[1][1] * point.y + mat[1][2] * point.z + mat[1][3] * point.w,
+                 mat[2][0] * point.x + mat[2][1] * point.y + mat[2][2] * point.z + mat[2][3] * point.w);
 }
 
 Vector Matrix::operator*(const Vector& vector) {
-    return Vector(mat[0][0] * vector.x + mat[0][1] * vector.y + mat[0][2] * vector.z + mat[0][3],
-                  mat[1][0] * vector.x + mat[1][1] * vector.y + mat[1][2] * vector.z + mat[1][3],
-                  mat[2][0] * vector.x + mat[2][1] * vector.y + mat[2][2] * vector.z + mat[2][3]);
+    return Vector(mat[0][0] * vector.x + mat[0][1] * vector.y + mat[0][2] * vector.z + mat[0][3] * vector.w,
+                  mat[1][0] * vector.x + mat[1][1] * vector.y + mat[1][2] * vector.z + mat[1][3] * vector.w,
+                  mat[2][0] * vector.x + mat[2][1] * vector.y + mat[2][2] * vector.z + mat[2][3] * vector.w);
 }
 
 Matrix Matrix::operator*(const Matrix& other) {

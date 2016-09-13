@@ -17,6 +17,7 @@ public:
     float x;
     float y;
     float z;
+    float w = 0;
 
     double norm();
     Vector normalize();

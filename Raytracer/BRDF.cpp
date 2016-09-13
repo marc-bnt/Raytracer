@@ -11,9 +11,10 @@
 BRDF::BRDF() {
 }
 
-BRDF::BRDF(Color kd, Color ks, Color ka, float kr) {
+BRDF::BRDF(Color kd, Color ks, Color ka, Color ke, float shininess) {
     this->kd = kd;
     this->ks = ks;
     this->ka = ka;
-    this->kr = kr;
+    this->ke = ke;
+    this->shininess = shininess;
 }

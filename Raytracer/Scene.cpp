@@ -34,6 +34,7 @@ void Scene::render() {
         camera->generateRay(sample, &ray);
         raytracer->trace(ray, &color);
         film->commit(sample, color);
+//        break;
     }
     
     film->writeImage();
@@ -140,7 +141,7 @@ Scene::Scene(const char* input, const char* output) {
                     if (validinput) {
                         Sphere* sphere = new Sphere(Point(values[0],values[1],values[2]), values[3]);
 
-                        GeometricPrimitive *primitive = new GeometricPrimitive(new Transformation(transfstack.top()), sphere, BRDF(brdf.kd, brdf.ks, brdf.ka, brdf.kr));
+                        GeometricPrimitive *primitive = new GeometricPrimitive(new Transformation(transfstack.top()), sphere, BRDF(brdf.kd, brdf.ks, brdf.ka, brdf.ke, brdf.shininess));
                         aggregate.list.push_back(primitive);
                     }
                 }
@@ -153,7 +154,7 @@ Scene::Scene(const char* input, const char* output) {
 
                         Triangle* triangle = new Triangle(vert0, vert1, vert2);
                         
-                        GeometricPrimitive *primitive = new GeometricPrimitive(new Transformation(transfstack.top()), triangle, BRDF(brdf.kd, brdf.ks, brdf.ka, brdf.kr));
+                        GeometricPrimitive *primitive = new GeometricPrimitive(new Transformation(transfstack.top()), triangle, BRDF(brdf.kd, brdf.ks, brdf.ka, brdf.ke, brdf.shininess));
                         aggregate.list.push_back(primitive);
                     }
                 }
@@ -186,12 +187,12 @@ Scene::Scene(const char* input, const char* output) {
                 } else if (cmd == "emission") {
                     validinput = readvals(s, 3, values);
                     if (validinput) {
-//                        emission = vec3(values[0],values[1],values[2]);
+                        brdf.ke = Color(values[0],values[1],values[2]);
                     }
                 } else if (cmd == "shininess") {
                     validinput = readvals(s, 1, values);
                     if (validinput) {
-//                        shininess = values[0];
+                        brdf.shininess = values[0];
                     }
                 }
                 else if (cmd == "translate") {

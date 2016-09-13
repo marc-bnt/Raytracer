@@ -6,6 +6,7 @@
 //
 //
 
+#include <float.h>
 #include "Point.hpp"
 #include "Vector.hpp"
 
@@ -15,7 +16,8 @@ public:
     Point pos;
     Vector dir;
     float tMin = 0.0;
-    float tMax = 1.0;
+    float tMax = FLT_MAX;
     Ray();
     Ray(Point pos, Vector dir);
+    Ray(Point pos, Vector dir, float tMin, float tMax);
 };
