@@ -20,6 +20,8 @@ public:
     float w = 1;
 
     double dot(const Vector& other);
+    Point operator+(const Point& other);
+    
     Vector operator+(const Vector& other);
     Vector operator-(const Point& other);
   
