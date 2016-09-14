@@ -25,6 +25,10 @@ Color& Color::operator+=(const Color& other) {
     return *this;
 }
 
+bool Color::operator>(const float other) {
+    return r + g + b > other;
+}
+
 Color::Color() {
 }
 

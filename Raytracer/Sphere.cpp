@@ -78,7 +78,8 @@ bool Sphere::intersectP(Ray& ray) {
         thit = thit1;
     }
     
-    return thit > ray.tMin && thit < ray.tMax;
+    return thit > ray.tMin;
+//    return thit > ray.tMin && thit < ray.tMax;
 }
 
 Sphere::Sphere() {

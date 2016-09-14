@@ -15,15 +15,15 @@ void Light::generateLightRay(LocalGeo& localGeo, Ray* lray, Color* lcolor) {
     switch (type) {
         case LightDirectional:
             lray->pos = localGeo.pos;
-            lray->dir = -direction;
-            lray->tMin = 0.01f;
+            lray->dir = direction.normalize();
+            lray->tMin = 0.001f;
             lray->tMax = FLT_MAX;
             break;
             
         case LightPoint:
             lray->pos = localGeo.pos;
-            lray->dir = position - localGeo.pos;
-            lray->tMin = 0.01f;
+            lray->dir = (position - localGeo.pos).normalize();
+            lray->tMin = 0.001f;
             lray->tMax = 1.0;
             break;
     }

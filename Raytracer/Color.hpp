@@ -23,6 +23,8 @@ public:
 
     Color operator+(const Color& other);
     Color& operator+=(const Color& other);
+
+    bool operator>(const float other);
 };
 
 #endif /* Color_hpp */

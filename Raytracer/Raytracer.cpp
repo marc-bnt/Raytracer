@@ -27,10 +27,18 @@ Color Raytracer::shading(LocalGeo &localGeo, BRDF &brdf, Ray lray, Color lcolor)
     
     Color lambert = brdf.kd * lcolor * max(nDotL, 0.0f);
     
-    Vector r = (-l + 2 * nDotL *n).normalize();
-    Vector v = (eye - localGeo.pos).normalize();
+//    Vector r = (-l + 2 * nDotL *n).normalize();
+//    Vector v = (eye - localGeo.pos).normalize();
+//    
+//    Color phong = brdf.ks * lcolor * pow(max(r.dot(v), 0.0), brdf.shininess);
     
-    Color phong = brdf.ks * lcolor * pow(max(r.dot(v), 0.0), brdf.shininess);
+    Vector v = (eye - localGeo.pos).normalize();
+    Vector halfVec = (lray.dir + v).normalize() ;
+    
+    float nDotH = n.dot(halfVec);
+    
+    Color phong = brdf.ks * lcolor * pow(max(nDotH, 0.0f), brdf.shininess);
+
     return lambert + phong;
 }
 
@@ -65,23 +73,32 @@ void Raytracer::trace(Ray& ray, int depth, Color* color, Color component) {
         Color lcolor;
 
         lights[i].generateLightRay(intersection.localGeo, &lray, &lcolor);
+        
+//        float dist = (lights[i].position - intersection.localGeo.pos).norm();
+//        lray.tMin = dist;
 
+        // XXX
+        eye = ray.pos;
+        
         // Check if the light is blocked or not
         if (!primitives.intersectP(lray)) {
             // If not, do shading calculation for this
             // light source
-            *color += component * shading(intersection.localGeo, brdf, lray, lcolor);
+            Color pointColor = shading(intersection.localGeo, brdf, lray, lcolor);
+            *color += component * pointColor;
         }
     }
     
-    // Handle mirror reflection
-    Ray reflected = createReflectRay(intersection.localGeo, ray);
-    Color reflectionColor = Color(0, 0, 0);
-    
-    // Make a recursive call to trace the reflected ray
-    trace(reflected, depth + 1, &reflectionColor, component * brdf.ks);
-    
-    *color += reflectionColor;
+    if (brdf.ks > 0) {
+        // Handle mirror reflection
+        Ray reflected = createReflectRay(intersection.localGeo, ray);
+        Color reflectionColor = Color(0, 0, 0);
+        
+        // Make a recursive call to trace the reflected ray
+        trace(reflected, depth + 1, &reflectionColor, component * brdf.ks);
+        
+        *color += reflectionColor;
+    }
 }
 
 Raytracer::Raytracer(AggregatePrimitive& primitives, vector<Light> &lights, Point eye) {

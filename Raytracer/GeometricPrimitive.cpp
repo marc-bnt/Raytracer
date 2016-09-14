@@ -23,7 +23,6 @@ bool GeometricPrimitive::intersect(Ray& ray, float* thit, Intersection* in)  {
 
 bool GeometricPrimitive::intersectP(Ray& ray) {
     Ray oray = (*worldToObj) * ray;
-    
     return shape->intersectP(oray);
 }
 

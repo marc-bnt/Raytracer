@@ -74,11 +74,6 @@ Scene::Scene(const char* input, const char* output) {
                 if (cmd == "directional") {
                     validinput = readvals(s, 6, values);
                     if (validinput) {
-//                        vec3 posn = vec3(values[0],values[1],values[2]);
-//                        vec3 col = vec3(values[3],values[4],values[5]);
-//                        vec3 dir = vec3(transfstack.top() * vec4(posn, 0), 3);
-//                        Light light = Light(dir,col,0);
-                        
                         Vector direction = Vector(values[0],values[1],values[2]);
                         Color color = Color(values[3],values[4],values[5]);
 
@@ -90,12 +85,6 @@ Scene::Scene(const char* input, const char* output) {
                 else if (cmd == "point") {
                     validinput = readvals(s, 6, values);
                     if (validinput) {
-//                        
-//                        vec3 posn = vec3(values[0],values[1],values[2]);
-//                        vec3 col = vec3(values[3],values[4],values[5]);
-//                        vec3 dir = vec3(transfstack.top() * vec4(posn, 1));
-//                        Light light = Light(dir,col,1,attenuation);
-//                        
                         Point position = Point(values[0],values[1],values[2]);
                         Color color = Color(values[3],values[4],values[5]);
                         
@@ -121,9 +110,6 @@ Scene::Scene(const char* input, const char* output) {
                     if (validinput) {
                         width = values[0];
                         height = values[1];
-                        
-//                        pixels = vec2(values[0],values[1]);
-//                        film = new Film(pixels);
                     }
                 }
                 else if (cmd == "output") {

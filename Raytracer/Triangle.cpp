@@ -17,7 +17,6 @@ bool Triangle::intersect(Ray& ray, float* thit, LocalGeo* local) {
         
     *thit = (point1.dot(normal) - ray.pos.dot(normal)) / dirDotN;
 
-    // TODO: Check tMax
     Vector point = ray.pos + ray.dir * (*thit);
     
     if (normal.dot((point2 - point1).cross(point - point1)) < 0) {
@@ -46,8 +45,7 @@ bool Triangle::intersectP(Ray& ray) {
         return false;
     
     float thit = (point1.dot(normal) - ray.pos.dot(normal)) / dirDotN;
-    
-    // TODO: Check tMax
+
     Vector point = ray.pos + ray.dir * thit;
     
     if (normal.dot((point2 - point1).cross(point - point1)) < 0) {
@@ -61,8 +59,9 @@ bool Triangle::intersectP(Ray& ray) {
     if (normal.dot((point1 - point3).cross(point - point3)) < 0) {
         return false;
     }
-    
-    return thit > ray.tMin && thit < ray.tMax;
+
+    return thit > ray.tMin;
+//    return thit > ray.tMin && thit < ray.tMax;
 }
 
 Triangle::Triangle(Point point1, Point point2, Point point3) {
