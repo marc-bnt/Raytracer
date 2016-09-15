@@ -38,7 +38,7 @@ bool Sphere::intersect(Ray& ray, float* thit, LocalGeo* local) {
         *thit = thit1;
     }
     
-    Vector point = ray.pos + (ray.dir*(*thit));
+    Vector point = ray.pos + (ray.dir * (*thit));
     Vector normal = (point - center).normalize();
     
     local->pos = Point(point.x, point.y, point.z);
@@ -47,7 +47,7 @@ bool Sphere::intersect(Ray& ray, float* thit, LocalGeo* local) {
     return *thit > ray.tMin && *thit < ray.tMax;
 }
 
-bool Sphere::intersectP(Ray& ray) {
+bool Sphere::intersectP(Ray& ray, LocalGeo* local) {
     float a = ray.dir.dot(ray.dir);
     float b = 2 * (ray.dir.dot(ray.pos - center));
     float c = (ray.pos - center).dot(ray.pos - center) - pow(radius, 2);
@@ -77,9 +77,11 @@ bool Sphere::intersectP(Ray& ray) {
     } else {
         thit = thit1;
     }
+
+    Vector point = ray.pos + (ray.dir * thit);
+    local->pos = Point(point.x, point.y, point.z);
     
     return thit > ray.tMin;
-//    return thit > ray.tMin && thit < ray.tMax;
 }
 
 Sphere::Sphere() {

@@ -6,6 +6,7 @@
 //
 //
 
+#include "math.h"
 #include "Triangle.hpp"
 
 bool Triangle::intersect(Ray& ray, float* thit, LocalGeo* local) {
@@ -37,7 +38,7 @@ bool Triangle::intersect(Ray& ray, float* thit, LocalGeo* local) {
     return *thit > ray.tMin && *thit < ray.tMax;
 }
 
-bool Triangle::intersectP(Ray& ray) {
+bool Triangle::intersectP(Ray& ray, LocalGeo* local) {
     Vector normal = (point2 - point1).cross(point3 - point1).normalize();
     double dirDotN = ray.dir.dot(normal);
     
@@ -60,8 +61,9 @@ bool Triangle::intersectP(Ray& ray) {
         return false;
     }
 
+    local->pos = Point(point.x, point.y, point.z);
+
     return thit > ray.tMin;
-//    return thit > ray.tMin && thit < ray.tMax;
 }
 
 Triangle::Triangle(Point point1, Point point2, Point point3) {

@@ -18,7 +18,7 @@ private:
     double radius;
 public:
     bool intersect(Ray& ray, float* thit, LocalGeo* local);
-    bool intersectP(Ray& ray);
+    bool intersectP(Ray& ray, LocalGeo* local);
 
     Sphere();
     Sphere(Point center, double radius);

@@ -25,6 +25,7 @@ public:
     Color color;
     Point position;
     Vector direction;
+    Color attenuation;
     LightType type;
     
     void generateLightRay(LocalGeo& localGeo, Ray* lray, Color* lcolor);
@@ -35,7 +36,7 @@ public:
     Light(Vector direction, Color color);
     
     // Point light
-    Light(Point position, Color color);
+    Light(Point position, Color color, Color attenuation);
 };
 
 #endif /* Light_hpp */

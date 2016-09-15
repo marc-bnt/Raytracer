@@ -19,7 +19,7 @@ public:
     vector<Primitive*> list;
     
     bool intersect(Ray& ray, float* thit, Intersection* in);
-    bool intersectP(Ray& ray);
+    bool intersectP(Ray& ray, float* dist);
     void getBRDF(LocalGeo& local, BRDF* brdf);
 
     AggregatePrimitive();

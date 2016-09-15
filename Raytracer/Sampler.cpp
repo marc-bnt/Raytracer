@@ -10,8 +10,8 @@
 #include "Sampler.hpp"
 
 bool Sampler::getSample(Sample *sample) {
-//    sample->x = 190.5;
-//    sample->y = 403.5;
+//    sample->x = 273.5;
+//    sample->y = 34.5;
 //    return true;
 
     if (y > height) {

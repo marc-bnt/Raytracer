@@ -17,11 +17,10 @@
 
 class Primitive {
 public:
-    // XXX
     BRDF brdf;
 
     virtual bool intersect(Ray& ray, float* thit, Intersection* in) = 0;
-    virtual bool intersectP(Ray& ray) = 0;
+    virtual bool intersectP(Ray& ray, float* dist) = 0;
     virtual void getBRDF(LocalGeo& local, BRDF* brdf) = 0;
 };
 

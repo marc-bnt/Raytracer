@@ -55,6 +55,8 @@ Scene::Scene(const char* input, const char* output) {
                             0, 0, 1, 0,
                             0, 0, 0, 1));
 
+    Color attenuation = Color(1, 0, 0);
+    
     in.open(input);
     
     if (in.is_open()) {
@@ -79,7 +81,6 @@ Scene::Scene(const char* input, const char* output) {
 
                         lights.push_back(Light(direction, color));
                     }
-                    
                 }
                 
                 else if (cmd == "point") {
@@ -88,13 +89,13 @@ Scene::Scene(const char* input, const char* output) {
                         Point position = Point(values[0],values[1],values[2]);
                         Color color = Color(values[3],values[4],values[5]);
                         
-                        lights.push_back(Light(position, color));
+                        lights.push_back(Light(position, color, attenuation));
                     }
                 }
                 else if (cmd == "attenuation") {
                     validinput = readvals(s, 3, values);
                     if (validinput) {
-//                        attenuation = vec3(values[0],values[1],values[2]);
+                        attenuation = Color(values[0],values[1],values[2]);
                     }
                 }
                 

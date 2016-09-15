@@ -14,12 +14,13 @@
 
 class GeometricPrimitive : public Primitive {
 private:
-    Transformation *objToWorld;
-    Transformation *worldToObj;
     Shape* shape;
 public:
+    Transformation *objToWorld;
+    Transformation *worldToObj;
+
     bool intersect(Ray& ray, float* thit, Intersection* in);
-    bool intersectP(Ray& ray);
+    bool intersectP(Ray& ray, float* dist);
     void getBRDF(LocalGeo& local, BRDF* brdf);
     
     GeometricPrimitive(Transformation *objToWorld, Shape* shape, BRDF brdf);

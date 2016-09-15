@@ -24,7 +24,7 @@ public:
     
     // Same as intersect, but just return whether there is any intersection or
     // not
-    virtual bool intersectP(Ray& ray) = 0;
+    virtual bool intersectP(Ray& ray, LocalGeo* local) = 0;
 };
 
 #endif /* Shape_hpp */

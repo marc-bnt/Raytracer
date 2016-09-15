@@ -19,7 +19,7 @@ private:
     Point point3;
 public:
     bool intersect(Ray& ray, float* thit, LocalGeo* local);
-    bool intersectP(Ray& ray);
+    bool intersectP(Ray& ray, LocalGeo* local);
 
     Triangle();
     Triangle(Point point1, Point point2, Point point3);

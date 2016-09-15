@@ -6,6 +6,7 @@
 //
 //
 
+#include "math.h"
 #include "GeometricPrimitive.hpp"
 
 bool GeometricPrimitive::intersect(Ray& ray, float* thit, Intersection* in)  {
@@ -21,9 +22,19 @@ bool GeometricPrimitive::intersect(Ray& ray, float* thit, Intersection* in)  {
     return true;
 }
 
-bool GeometricPrimitive::intersectP(Ray& ray) {
+bool GeometricPrimitive::intersectP(Ray& ray, float* dist) {
     Ray oray = (*worldToObj) * ray;
-    return shape->intersectP(oray);
+    LocalGeo olocal;
+    
+    if (!shape->intersectP(oray, &olocal)) {
+        return false;
+    }
+    
+    LocalGeo local = (*objToWorld) * olocal;
+    Point point = local.pos;
+
+    *dist = sqrt(pow(ray.pos.x - point.x, 2) + pow(ray.pos.y - point.y, 2) + pow(ray.pos.z - point.z, 2));
+    return true;
 }
 
 void GeometricPrimitive::getBRDF(LocalGeo& local, BRDF* brdf) {

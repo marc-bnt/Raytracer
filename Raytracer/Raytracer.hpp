@@ -24,7 +24,7 @@ private:
     Point eye;
     
     Ray createReflectRay(LocalGeo &local, Ray &ray);
-    Color shading(LocalGeo &localGeo, BRDF &brdf, Ray lray, Color lcolor);
+    Color shading(LocalGeo &localGeo, BRDF &brdf, Ray lray, Color lcolor, float attenuation);
     
     void trace(Ray& ray, int depth, Color* color, Color component);
 public:

@@ -9,6 +9,7 @@
 #include <cfloat>
 #include "math.h"
 #include "Raytracer.hpp"
+#include "Transformation.hpp"
 
 using namespace std;
 
@@ -19,25 +20,20 @@ Ray Raytracer::createReflectRay(LocalGeo &local, Ray &ray) {
     return Ray(local.pos, -l + 2 * n.dot(l) * n, 0.001f, FLT_MAX);
 }
 
-Color Raytracer::shading(LocalGeo &localGeo, BRDF &brdf, Ray lray, Color lcolor) {
+Color Raytracer::shading(LocalGeo &localGeo, BRDF &brdf, Ray lray, Color lcolor, float attenuation) {
     Vector n = localGeo.normal;
     Vector l = lray.dir.normalize();
 
     float nDotL = n.dot(l);
     
-    Color lambert = brdf.kd * lcolor * max(nDotL, 0.0f);
-    
-//    Vector r = (-l + 2 * nDotL *n).normalize();
-//    Vector v = (eye - localGeo.pos).normalize();
-//    
-//    Color phong = brdf.ks * lcolor * pow(max(r.dot(v), 0.0), brdf.shininess);
+    Color lambert = (brdf.kd / attenuation) * lcolor * max(nDotL, 0.0f);
     
     Vector v = (eye - localGeo.pos).normalize();
     Vector halfVec = (lray.dir + v).normalize() ;
     
     float nDotH = n.dot(halfVec);
     
-    Color phong = brdf.ks * lcolor * pow(max(nDotH, 0.0f), brdf.shininess);
+    Color phong = (brdf.ks / attenuation) * lcolor * pow(max(nDotH, 0.0f), brdf.shininess);
 
     return lambert + phong;
 }
@@ -69,22 +65,26 @@ void Raytracer::trace(Ray& ray, int depth, Color* color, Color component) {
     
     // There is an intersection, loop through all light sources
     for (int i = 0; i < lights.size(); i++) {
+        Light light = lights[i];
         Ray lray;
         Color lcolor;
 
-        lights[i].generateLightRay(intersection.localGeo, &lray, &lcolor);
+        light.generateLightRay(intersection.localGeo, &lray, &lcolor);
         
-//        float dist = (lights[i].position - intersection.localGeo.pos).norm();
-//        lray.tMin = dist;
-
-        // XXX
+        float dist = (light.position - intersection.localGeo.pos).norm();
         eye = ray.pos;
         
         // Check if the light is blocked or not
-        if (!primitives.intersectP(lray)) {
+        if (!primitives.intersectP(lray, &dist)) {
             // If not, do shading calculation for this
             // light source
-            Color pointColor = shading(intersection.localGeo, brdf, lray, lcolor);
+            float attenuation = 1;
+            
+            if (lights[i].type == LightPoint) {
+                attenuation = light.attenuation.r + light.attenuation.g * dist + light.attenuation.b * pow(dist, 2);
+            }
+            
+            Color pointColor = shading(intersection.localGeo, brdf, lray, lcolor, attenuation);
             *color += component * pointColor;
         }
     }

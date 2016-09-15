@@ -41,12 +41,16 @@ bool AggregatePrimitive::intersect(Ray& ray, float* thit, Intersection* in) {
     return intersects;
 }
 
-bool AggregatePrimitive::intersectP(Ray& ray) {
+bool AggregatePrimitive::intersectP(Ray& ray, float* dist) {
     for (int i = 0; i < list.size(); i++) {
         Primitive *primitive = list[i];
         
-        if (primitive->intersectP(ray))
-            return true;
+        float geometricDist;
+
+        if (primitive->intersectP(ray, &geometricDist)) {
+            if (geometricDist < *dist)
+                return true;
+        }
     }
     
     return false;

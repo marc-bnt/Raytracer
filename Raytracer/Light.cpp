@@ -39,9 +39,10 @@ Light::Light(Vector direction, Color color) {
     this->type = LightDirectional;
 }
 
-Light::Light(Point position, Color color) {
+Light::Light(Point position, Color color, Color attenuation) {
     this->color = color;
     this->position = position;
     this->direction = Vector(0, 0, 0);
+    this->attenuation = attenuation;
     this->type = LightPoint;
 }
