@@ -8,8 +8,8 @@ Raytracer written in C++.
 
 # Cornell Box
 
-https://raw.githubusercontent.com/marc-bnt/Raytracer/master/Raytracer/testscenes/scene6.png
+![alt text](https://raw.githubusercontent.com/marc-bnt/Raytracer/master/Raytracer/testscenes/scene6.png "Cornell Box")
 
 # Stanford Dragon
 
-https://raw.githubusercontent.com/marc-bnt/Raytracer/master/Raytracer/testscenes/scene7.png
+![alt text](https://raw.githubusercontent.com/marc-bnt/Raytracer/master/Raytracer/testscenes/scene7.png "Stanford Dragon")
